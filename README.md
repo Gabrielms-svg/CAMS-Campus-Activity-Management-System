@@ -14,4 +14,7 @@ system aims to enhance the management efficiency and participation experience fo
 campus stakeholders by providing a user-friendly and organized platform for campus 
 activities.
 
-python version 3.8
+python version 3.11.2
+django 3.2.7
+reports lab 4.4.9
+pillow 11.3.0

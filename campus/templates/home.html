@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - CAMS{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm text-center">
+    <h1 class="display-5 fw-bold">Welcome to CAMS</h1>
+    <p class="col-md-8 fs-4 mx-auto">Manage campus activities, track participation, and get certified seamlessly.</p>
+    <a class="btn btn-primary btn-lg"
+        href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'login' %}{% endif %}" role="button">
+        {% if user.is_authenticated %}Go to Dashboard{% else %}Get Started{% endif %}
+    </a>
+</div>
+
+<div class="row text-center mt-5">
+    <div class="col-md-4">
+        <h3>Activities</h3>
+        <p>Explore sports, arts, and technical events happening on campus.</p>
+    </div>
+    <div class="col-md-4">
+        <h3>Participation</h3>
+        <p>Easy application and tracking of your activity participation.</p>
+    </div>
+    <div class="col-md-4">
+        <h3>Certificates</h3>
+        <p>Download verified certificates for your achievements.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Active Detail - CAMS{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm mb-4">
+            {% if activity.image %}
+            <img src="{{ activity.image.url }}" class="card-img-top" alt="{{ activity.title }}"
+                style="max-height: 400px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h2 class="card-title">{{ activity.title }}</h2>
+                <div class="mb-3">
+                    <span class="badge bg-primary me-2">{{ activity.get_category_display }}</span>
+                    <span class="badge bg-success">{{ activity.get_status_display }}</span>
+                </div>
+                <h5 class="mt-4">Description</h5>
+                <p class="card-text">{{ activity.description }}</p>
+                <h5 class="mt-4">Details</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Starts:</strong> {{ activity.start_date }}</li>
+                    <li><strong>Ends:</strong> {{ activity.end_date }}</li>
+                    <li><strong>Location:</strong> {{ activity.location }}</li>
+                    <li><strong>Faculty:</strong> {{ activity.faculty_incharge.get_full_name }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title">Join this Activity</h4>
+                <p class="card-text">Earn <strong>{{ activity.points }} points</strong> by participating.</p>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <span>Slots:</span>
+                    <span class="fw-bold">{{ activity.participations.count }} / {{ activity.max_participants }}</span>
+                </div>
+                {% if user.is_authenticated %}
+                {% if user.is_student %}
+                <form action="{% url 'apply_activity' activity.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success w-100 btn-lg">Apply Now</button>
+                </form>
+                {% else %}
+                <div class="alert alert-warning">Only students can apply.</div>
+                {% endif %}
+                {% else %}
+                <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary w-100">Login to Apply</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

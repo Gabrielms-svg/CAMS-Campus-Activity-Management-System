@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Faculty Dashboard - CAMS{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Faculty Dashboard</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">My Activities</h5>
+                <p class="card-text">Manage activities you are in charge of.</p>
+                <a href="{% url 'faculty_activities' %}" class="btn btn-primary">Manage</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Verify Participation</h5>
+                <p class="card-text">Approve or reject student participation requests.</p>
+                <a href="{% url 'manage_participation' %}" class="btn btn-warning">Verify Requests</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

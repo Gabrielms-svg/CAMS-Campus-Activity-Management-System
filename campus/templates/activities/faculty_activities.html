@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}My Activities - CAMS{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h2>My Activities</h2>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'create_activity' %}" class="btn btn-primary">Create New Activity</a>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover shadow-sm bg-white rounded">
+        <thead class="table-light">
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Participants</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for activity in activities %}
+            <tr>
+                <td>{{ activity.title }}</td>
+                <td><span class="badge bg-info text-dark">{{ activity.get_category_display }}</span></td>
+                <td>
+                    {% if activity.status == 'OPEN' %}
+                    <span class="badge bg-success">Open</span>
+                    {% elif activity.status == 'CLOSED' %}
+                    <span class="badge bg-secondary">Closed</span>
+                    {% else %}
+                    <span class="badge bg-danger">Cancelled</span>
+                    {% endif %}
+                </td>
+                <td>{{ activity.participations.count }} / {{ activity.max_participants }}</td>
+                <td>
+                    <a href="{% url 'update_activity' activity.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a href="#" class="btn btn-sm btn-outline-success">Requests</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center py-4">No activities found. Create one now!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

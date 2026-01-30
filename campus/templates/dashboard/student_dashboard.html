@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Dashboard - CAMS{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Student Dashboard</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title">Available Activities</h5>
+                <p class="card-text">Browse and apply for open activities.</p>
+                <a href="{% url 'activity_list' %}" class="btn btn-primary">Browse</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title">My Points</h5>
+                <p class="card-text display-6">{{ total_points }}</p>
+                <small class="text-muted">Total Activity Points</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h3>My Participations</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered bg-white">
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Certificate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in participations %}
+                    <tr>
+                        <td>{{ p.activity.title }}</td>
+                        <td>{{ p.activity.start_date|date:"M d, Y" }}</td>
+                        <td>
+                            {% if p.status == 'APPROVED' %}
+                            <span class="badge bg-success">Approved</span>
+                            {% elif p.status == 'REJECTED' %}
+                            <span class="badge bg-danger">Rejected</span>
+                            {% elif p.status == 'APPLIED' %}
+                            <span class="badge bg-warning text-dark">Pending</span>
+                            {% else %}
+                            <span class="badge bg-secondary">{{ p.status }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if p.status == 'COMPLETED' or p.status == 'APPROVED' %}
+                            <a href="{% url 'download_certificate' p.id %}"
+                                class="btn btn-sm btn-outline-success">Download</a>
+                            {% else %}
+                            -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">You haven't applied to any activities yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

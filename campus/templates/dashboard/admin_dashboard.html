@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - CAMS{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="mb-4">Admin Dashboard</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5 class="card-title">Manage Users</h5>
+                <p class="card-text">Add, remove, or modify faculty and student accounts.</p>
+                <a href="#" class="btn btn-light">Go to Users</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5 class="card-title">Manage Activities</h5>
+                <p class="card-text">Create and oversee all campus activities.</p>
+                <a href="#" class="btn btn-light">Go to Activities</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5 class="card-title">Reports</h5>
+                <p class="card-text">View system-wide statistics and reports.</p>
+                <a href="#" class="btn btn-light">View Reports</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Activities - CAMS{% endblock %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12 text-center">
+        <h2>Explore Activities</h2>
+        <p class="text-muted">Discover and participate in events across campus</p>
+    </div>
+</div>
+<div class="row">
+    {% for activity in activities %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            {% if activity.image %}
+            <img src="{{ activity.image.url }}" class="card-img-top" alt="{{ activity.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                <span class="fs-4">No Image</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ activity.title }}</h5>
+                <p class="card-text text-muted mb-2">
+                    <small>Date: {{ activity.start_date|date:"Y-m-d" }}</small><br>
+                    <small>Location: {{ activity.location }}</small>
+                </p>
+                <p class="card-text">{{ activity.description|truncatewords:20 }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-primary">{{ activity.get_category_display }}</span>
+                    <span class="text-muted small">Points: {{ activity.points }}</span>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-top-0">
+                <a href="{% url 'activity_detail' activity.pk %}" class="btn btn-outline-primary w-100">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <h3>No open activities at the moment.</h3>
+        <p>Check back later!</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

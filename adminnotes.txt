@@ -1,0 +1,4 @@
+superuser details
+
+username:admin
+pasword:adminpass
